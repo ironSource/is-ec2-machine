@@ -1,0 +1,22 @@
+{
+  "name": "is-ec2-machine",
+  "version": "1.0.0",
+  "description": "Detect if current machine is running on AWS EC2",
+  "license": "MIT",
+  "author": "Vincent Weevers",
+  "scripts": {
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "keywords": [
+    "ec2",
+    "hypervisor"
+  ],
+  "repository": "https://github.com/ironsource/is-ec2-machine",
+  "bugs": "https://github.com/ironsource/is-ec2-machine/issues",
+  "homepage": "https://github.com/ironsource/is-ec2-machine",
+  "engines": {
+    "node": ">=4.0.0",
+    "npm": ">=2.0.0"
+  }
+}
