@@ -1,11 +1,10 @@
 {
   "name": "is-ec2-machine",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Detect if current machine is running on AWS EC2",
   "license": "MIT",
   "author": "Vincent Weevers",
-  "scripts": {
-  },
+  "scripts": {},
   "dependencies": {},
   "devDependencies": {},
   "keywords": [
