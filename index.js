@@ -22,21 +22,36 @@ if (process.platform === 'win32') {
   const fs = require('fs')
 
   module.exports = function isEC2 () {
-    // If this is not sufficient, we could consider dmidecode
-    // http://serverfault.com/a/775063
-
-    try {
-      var fd = fs.openSync('/sys/hypervisor/uuid', 'r')
-    } catch (err) {
-      if (err.code !== 'ENOENT') throw err
-      return false
+    // Might be "Xen" or other on older instance types (t2)
+    if (head('/sys/class/dmi/id/bios_vendor', 10) === 'Amazon EC2') {
+      return true
     }
 
-    const head = Buffer(3)
+    // Does not exist in newer instance types (t3, c5)
+    if (head('/sys/hypervisor/uuid', 3) === 'ec2') {
+      return true
+    }
 
-    fs.readSync(fd, head, 0, 3, 0)
+    return false
+  }
+
+  function head (path, length) {
+    let fd
+
+    try {
+      fd = fs.openSync(path, 'r')
+    } catch (err) {
+      if (err.code !== 'ENOENT') throw err
+      return
+    }
+
+    const buf = Buffer.allocUnsafe(length)
+    const bytesRead = fs.readSync(fd, buf, 0, length, 0)
+
     fs.closeSync(fd)
 
-    return head == 'ec2'
+    if (bytesRead === length) {
+      return buf.toString()
+    }
   }
 }
